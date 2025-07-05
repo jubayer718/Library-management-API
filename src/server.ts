@@ -9,7 +9,8 @@ dotenv.config();
 const main = async() => { 
 try {
   await mongoose.connect(config.db_Uri as string);
-  console.log('mongodb connected')
+  console.log('mongodb connected');
+  
   app.listen(config.port, () => {
     console.log(`server running on port ${config.port}`)
   })
