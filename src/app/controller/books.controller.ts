@@ -57,3 +57,21 @@ booksRouter.get("/books", async (req: Request, res: Response, next) => {
     next(error);
   }
 });
+
+// get book by id
+booksRouter.get("/books/:bookId", async (req: Request, res: Response, next) => {
+  try {
+    const { bookId } = req.params;
+
+    const book = await Book.findById(bookId);
+    res.status(200).json({
+      success: true,
+      message: "Book fetched successfully",
+      data: book,
+    });
+  } catch (error) {
+    next(error); // pass to global error handler
+  }
+});
+
+
