@@ -5,21 +5,22 @@ import { bookValidation } from '../zodValidation/books.validation';
 
 export const booksRouter = express.Router();
 
-booksRouter.post("/books", async (req: Request, res: Response) => {
+//create books routes
+
+booksRouter.post("/books", async (req: Request, res: Response, next) => {
   try {
+    //validate request body with zod
     const booksInfo = await bookValidation.parseAsync(req.body)
-  const book = await Book.create(booksInfo);
+    //save to mongodb
+  const createBook = await Book.create(booksInfo);
 
   res.status(201).json({
     success: true,
     message: "Book created successfully",
-    book
+    data:createBook
   })
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: "Invalid books",
-      error
-    }) 
+  } catch (error:any) {
+   // Automatically handled by global error handler
+   next(error);
  }
 })
