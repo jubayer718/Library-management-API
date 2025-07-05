@@ -80,7 +80,7 @@ booksRouter.patch("/books/:bookId", async (req: Request, res: Response, next) =>
   try {
     const { bookId } = req.params;
     const body = await bookValidation.parseAsync(req.body);
-    const updateData = await Book.findOneAndUpdate({ _id: bookId }, body, { new: true });
+    const updateData = await Book.findByIdAndUpdate({ _id: bookId }, body, { new: true });
     res.status(200).json({
       success: true,
       message:"Book data updated successfully",
@@ -90,4 +90,22 @@ booksRouter.patch("/books/:bookId", async (req: Request, res: Response, next) =>
     next(error)
   }
 
+})
+
+
+// delete book
+booksRouter.delete("/books/:bookId", async (req: Request, res: Response,next) => {
+  try {
+    const { bookId } = req.params;
+    const deletedData = await Book.findByIdAndDelete({ _id: bookId });
+    if (deletedData) {
+      res.status(200).json({
+        success: true,
+        message: "Book deleted successfully",
+        data:deletedData
+      })
+    }
+  } catch (error) {
+    next(error)
+  }
 })
