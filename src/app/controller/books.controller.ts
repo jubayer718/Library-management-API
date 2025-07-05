@@ -6,7 +6,6 @@ import { bookValidation } from '../zodValidation/books.validation';
 export const booksRouter = express.Router();
 
 //create books routes
-
 booksRouter.post("/books", async (req: Request, res: Response, next) => {
   try {
     //validate request body with zod
@@ -24,3 +23,37 @@ booksRouter.post("/books", async (req: Request, res: Response, next) => {
    next(error);
  }
 })
+
+
+// get all books
+booksRouter.get("/books", async (req: Request, res: Response, next) => {
+  try {
+    const { filter, sortBy = "createdAt", sort = "desc", limit = "10" } = req.query;
+
+    const query: any = {};
+
+    //  Filtering by genre
+    if (filter) {
+      query.genre = filter;
+    }
+
+    //  Sorting order
+    const sortOrder: any = sort === "asc" ? 1 : -1;
+    const sortOptions: any = {};
+    sortOptions[sortBy as string] = sortOrder;
+
+    //  Limit
+    const resultLimit = parseInt(limit as string, 10) || 10;
+
+    //  Fetch from MongoDB with filter, sort, and limit
+    const books = await Book.find(query).sort(sortOptions).limit(resultLimit);
+
+    res.status(200).json({
+      success: true,
+      message: "All books fetched successfully",
+      data: books,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
