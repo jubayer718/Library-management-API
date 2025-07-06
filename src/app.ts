@@ -16,14 +16,17 @@ app.use(express.json())
 app.use('/api', booksRouter)
 app.use('/api', borrowRoutes)
 
-// Global error handler
-app.use(errorHandler);
+app.use("/", (req: Request, res: Response) => {
+  res.send("Library management api running")
+})
 
 // not found handler
 app.use(notFound)
 
-app.use("/", (req: Request, res: Response) => {
-  res.send("Library management api running")
-})
+
+// Global error handler
+app.use(errorHandler);
+
+
 
 export default app;

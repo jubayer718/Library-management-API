@@ -60,10 +60,10 @@ This project provides an API for managing a library system. It allows you to add
 
 ```bash
 # Clone the repository
-git clone https://github.com/jubayer718/library-management_API.git
+git clone https://github.com/jubayer718/Library-management-API
 
 # Navigate to the project folder
-cd library-management-api
+cd Library-management-API
 
 # Install dependencies
 npm install
@@ -76,7 +76,7 @@ npm install
 npm start
 ```
 
-The server will run by default on `http://localhost:8000/` or the port defined in `.env`.
+The server will run by default on `http://localhost:9000/` or the port defined in `.env`.
 
 ## 📦 Dependencies
 
@@ -93,7 +93,7 @@ Create a `.env` file in the root directory:
 ```env
 Example
 
-PORT=8000
+PORT=9000
 DATABASE_URL=mongodb://localhost:27017/library
 ```
 
