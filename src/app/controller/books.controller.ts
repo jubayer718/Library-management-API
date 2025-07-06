@@ -102,7 +102,7 @@ booksRouter.delete("/books/:bookId", async (req: Request, res: Response,next) =>
       res.status(200).json({
         success: true,
         message: "Book deleted successfully",
-        data:deletedData
+        data:null
       })
     }
   } catch (error) {

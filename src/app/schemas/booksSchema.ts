@@ -45,3 +45,15 @@ export const bookSchema = new mongoose.Schema<IBook>(
   },
   { timestamps: true, versionKey:false }
 );
+
+// ! pre hook middleware
+bookSchema.pre("save", function (next) {
+  console.log(`Saving book: ${this.title}, Copies: ${this.copies}`);
+  next();
+});
+
+// ! post hook middleware
+bookSchema.post("save", function (doc, next) {
+  console.log(`The title of book is "${doc.title}" is saved.`);
+  next();
+});

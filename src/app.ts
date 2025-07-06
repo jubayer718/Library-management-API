@@ -1,7 +1,8 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import { booksRouter } from './app/controller/books.controller';
 import { errorHandler } from './app/middleware/errorHandler';
+import { borrowRoutes } from './app/controller/borrow.controller';
 
 
 const app = express();
@@ -12,10 +13,13 @@ app.use(express.json())
 
 
 app.use('/api', booksRouter)
-
+app.use('/api', borrowRoutes)
 
 // Global error handler
 app.use(errorHandler);
 
+app.use("/", (req: Request, res: Response) => {
+  res.send("Library management api running")
+})
 
 export default app;
