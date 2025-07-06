@@ -3,6 +3,7 @@ import cors from 'cors';
 import { booksRouter } from './app/controller/books.controller';
 import { errorHandler } from './app/middleware/errorHandler';
 import { borrowRoutes } from './app/controller/borrow.controller';
+import { notFound } from './app/middleware/notFound';
 
 
 const app = express();
@@ -17,6 +18,9 @@ app.use('/api', borrowRoutes)
 
 // Global error handler
 app.use(errorHandler);
+
+// not found handler
+app.use(notFound)
 
 app.use("/", (req: Request, res: Response) => {
   res.send("Library management api running")
